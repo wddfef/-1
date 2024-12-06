@@ -1,49 +1,36 @@
-# 实验四 循环结构程序设计
+# 实验五 数组
 ##一、实验目的
-1、熟悉用 while 语句，do-while 语句和 for 语句实现循环的方法。
-2、掌握在程序设计中用循环的方法实现各种算法（如穷举、迭代、递推等）。
-3、掌握 continue 语句和 break 语句的使用。
-4、熟练掌握循环结构的嵌套。
-5、练习调试与修改程序。
-##二实验准备
-1、复习 while、do-while 和 for 语句的特点和适用条件。 2、复习 break 和 continue 的区别。
+1、掌握一维数组和二维数组的定义、赋值和输入输出的方法。
+2、掌握字符数组和字符串函数的使用。
+3、掌握与数组有关的算法（特别是排序算法）。
+##二、实验准备
+1、复习数组的基本知识。
+2、复习字符串数组的特点和常用的字符串处理函数。
 ##三、实验内容
 #include <stdio.h>
 
 int main() {
-    int guess;
-    do {
-        printf("请输入你猜的数字（1-10之间）：");
-        scanf("%d", &guess);
-        if (guess > 5) {
-            printf("猜大了，请再试一次\n");
-        } else if (guess < 5) {
-            printf("猜小了，请再试一次\n");
-        }
-    } while (guess!= 5);
-    printf("恭喜你，猜对了！\n");
+    int numbers[10] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+    int sum = 0;
+    // 遍历数组计算总和
+    for (int i = 0; i < 10; i++) {
+        sum += numbers[i];
+    }
+    double average = (double)sum / 10;
+    printf("这组数字的平均值是：%.2lf\n", average);
     return 0;
 }
-问题：在上述 “猜数字游戏” 的do-while循环代码示例中，如果用户输入的不是整数，程序会出现什么情况，以及如何改进让程序能更合理地处理这种异常情况呢？
+问题：在示例二计算一组数平均值的 C 语言代码中，如果数组numbers中的元素个数发生了改变，比如变为了 20 个元素，代码需要做哪些调整才能正确计算平均值呢？
 解答：
 #include <stdio.h>
 
 int main() {
-    int guess;
-    do {
-        printf("请输入你猜的数字（1-10之间）：");
-        // 先清空输入缓冲区中可能残留的字符
-        while (getchar()!= '\n');
-        if (scanf("%d", &guess)!= 1) {
-            printf("输入不合法，请输入整数哦，请再试一次\n");
-            continue;
-        }
-        if (guess > 5) {
-            printf("猜大了，请再试一次\n");
-        } else if (guess < 5) {
-            printf("猜小了，请再试一次\n");
-        }
-    } while (guess!= 5);
-    printf("恭喜你，猜对了！\n");
+    int numbers[20] = {......};  // 填入具体的20个整数值
+    int sum = 0;
+    for (int i = 0; i < 20; i++) {
+        sum += numbers[i];
+    }
+    double average = (double)sum / 20;
+    printf("这组数字的平均值是：%.2lf\n", average);
     return 0;
 }
