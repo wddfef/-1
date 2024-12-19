@@ -1,32 +1,48 @@
-# 实验六 函数
+# 实验七 指针
 ##一、实验目的
-1、掌握定义函数的方法。
-2、掌握函数实参与形参的对应关系，以及“值传递”的方式。
-3、掌握函数的嵌套调用和递归调用的方法。
-4、掌握全局变量、局部变量、动态变量和静态变量的概念和使用方法
-5、理解和掌握多模块的程序设计与调试的方法
+1、熟练掌握指针、地址、指针类型、void 指针、空指针等概念。
+2、熟练掌握指针变量的定义和初始化、指针的间接访问、指针的加减运算和指针表达式。
+3、会使用数组的指针和指向数组的指针变量。
+4、会使用字符串的指针和指向字符串的指针变量。
 ##二、实验准备
-1、复习函数调用的基本理论知识。
-2、复习函数的嵌套调用和递归调用的方法。
-3、复习全局变量、局部变量；静态变量、动态变量；外部变量等概念和具体实用方法。
+1、复习变量、变量的地址、指针变量的概念并明确区分这三个不同的概念。
+2、复习指针和数组的结合应用。
+3、复习指针的其他理论知识。
 ##三、实验内容
 #include <stdio.h>
 
-// 计算一个数的平方的函数
-int square(int num) {
-    return num * num;
-}
-
-// 计算两个数平方和的函数，内部调用了square函数
-int sumOfSquares(int a, int b) {
-    return square(a) + square(b);
+// 交换两个整数的函数，使用指针作为参数
+void swap(int *a, int *b) {
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 int main() {
-    int num1 = 2, num2 = 3;
-    int sum = sumOfSquares(num1, num2);
-    printf("The sum of squares of %d and %d is %d\n", num1, num2, sum);
+    int num1 = 5, num2 = 10;
+    printf("Before swap: num1 = %d, num2 = %d\n", num1, num2);
+    swap(&num1, &num2);  // 传递变量的地址给函数
+    printf("After swap: num1 = %d, num2 = %d\n", num1, num2);
+
     return 0;
 }
-问题：如果在 sumOfSquares 函数中，先调用 square(b) 再调用 square(a)，对最终结果会有影响吗？
-解答：不会有影响。因为 square 函数是计算一个数的平方，在 sumOfSquares 函数中无论是先计算 square(a) 还是先计算 square(b)，最终都是将两个数的平方结果相加，加法具有交换律，所以顺序的改变不会影响最终 sumOfSquares 函数返回的两个数平方和的结果。
+问题：在 swap 函数中，如果不使用中间变量 temp ，能否实现交换两个变量的值呢？如果可以，该怎么做呢？
+解答：
+#include <stdio.h>
+
+// 交换两个整数的函数，使用指针作为参数，利用异或运算实现无中间变量交换
+void swap(int *a, int *b) {
+    *a = *a ^ *b;
+    *b = *a ^ *b;
+    *a = *a ^ *b;
+}
+
+int main() {
+    int num1 = 5, num2 = 10;
+    printf("Before swap: num1 = %d, num2 = %d\n", num1, num2);
+    swap(&num1, &num2);  // 传递变量的地址给函数
+    printf("After swap: num1 = %d, num2 = %d\n", num1, num2);
+
+    return 0;
+}
