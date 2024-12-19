@@ -1,36 +1,32 @@
-# 实验五 数组
+# 实验六 函数
 ##一、实验目的
-1、掌握一维数组和二维数组的定义、赋值和输入输出的方法。
-2、掌握字符数组和字符串函数的使用。
-3、掌握与数组有关的算法（特别是排序算法）。
+1、掌握定义函数的方法。
+2、掌握函数实参与形参的对应关系，以及“值传递”的方式。
+3、掌握函数的嵌套调用和递归调用的方法。
+4、掌握全局变量、局部变量、动态变量和静态变量的概念和使用方法
+5、理解和掌握多模块的程序设计与调试的方法
 ##二、实验准备
-1、复习数组的基本知识。
-2、复习字符串数组的特点和常用的字符串处理函数。
+1、复习函数调用的基本理论知识。
+2、复习函数的嵌套调用和递归调用的方法。
+3、复习全局变量、局部变量；静态变量、动态变量；外部变量等概念和具体实用方法。
 ##三、实验内容
 #include <stdio.h>
 
-int main() {
-    int numbers[10] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
-    int sum = 0;
-    // 遍历数组计算总和
-    for (int i = 0; i < 10; i++) {
-        sum += numbers[i];
-    }
-    double average = (double)sum / 10;
-    printf("这组数字的平均值是：%.2lf\n", average);
-    return 0;
+// 计算一个数的平方的函数
+int square(int num) {
+    return num * num;
 }
-问题：在示例二计算一组数平均值的 C 语言代码中，如果数组numbers中的元素个数发生了改变，比如变为了 20 个元素，代码需要做哪些调整才能正确计算平均值呢？
-解答：
-#include <stdio.h>
+
+// 计算两个数平方和的函数，内部调用了square函数
+int sumOfSquares(int a, int b) {
+    return square(a) + square(b);
+}
 
 int main() {
-    int numbers[20] = {......};  // 填入具体的20个整数值
-    int sum = 0;
-    for (int i = 0; i < 20; i++) {
-        sum += numbers[i];
-    }
-    double average = (double)sum / 20;
-    printf("这组数字的平均值是：%.2lf\n", average);
+    int num1 = 2, num2 = 3;
+    int sum = sumOfSquares(num1, num2);
+    printf("The sum of squares of %d and %d is %d\n", num1, num2, sum);
     return 0;
 }
+问题：如果在 sumOfSquares 函数中，先调用 square(b) 再调用 square(a)，对最终结果会有影响吗？
+解答：不会有影响。因为 square 函数是计算一个数的平方，在 sumOfSquares 函数中无论是先计算 square(a) 还是先计算 square(b)，最终都是将两个数的平方结果相加，加法具有交换律，所以顺序的改变不会影响最终 sumOfSquares 函数返回的两个数平方和的结果。
